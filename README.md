@@ -525,8 +525,8 @@ int main() {
 
     return 0;
 }
-
 ex:7
+
 #include&lt;stdio.h&gt;
 #include&lt;conio.h&gt;
 #include&lt;stdlib.h&gt;
@@ -631,3 +631,4 @@ disp2();
 getch();
 }
 
+e
