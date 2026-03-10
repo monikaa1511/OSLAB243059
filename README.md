@@ -526,3 +526,108 @@ int main() {
     return 0;
 }
 
+ex:7
+#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+#include&lt;stdlib.h&gt;
+int p,r,m,z,k,buf,a[10],avail[10],max[10][10],alloc[10][10],need[10][10],i,j,top;
+void get()
+{
+printf(&quot;\nENTER THE NUMBER OF PROCESSES:&quot;);
+scanf(&quot;%d&quot;,&amp;p);
+printf(&quot;\nENTER THE NUMBER OF RESOURCE TYPES:&quot;);
+scanf(&quot;%d&quot;,&amp;r);
+for(j=1;j&lt;=r;j++)
+{
+printf(&quot;\nENTER THE NUMBER OF RESOURCES FOR TYPE %d : &quot;,j);
+scanf(&quot;%d&quot;,&amp;avail[j]);
+}
+for(i=1;i&lt;=p;i++)
+{
+printf(&quot;\nENTER THE MAXIMUM NUMBER OF RESOURCES REQUIRED FOR
+PROCESS %d:\n&quot;,i);
+for(j=1;j&lt;=r;j++)
+{
+printf(&quot;\nFor Resource type %d :&quot;,j);
+scanf(&quot;%d&quot;,&amp;max[i][j]);
+}}
+
+26
+printf(&quot;\nENTER THE ALLOCATED INSTANCES:\n&quot;);
+for(i=1;i&lt;=p;i++)
+{
+printf(&quot;\nPROCESS %d:&quot;,i);
+printf(&quot;\n-------------&quot;);
+for(j=1;j&lt;=r;j++)
+{
+printf(&quot;\nResource Type - %d :&quot;,j);
+scanf(&quot;%d&quot;,&amp;m);
+if(m&lt;=avail[j])
+{ alloc[i][j]=m;
+avail[j]=avail[j]-m;
+}
+else
+printf(&quot;\nALLOCATION EXCEEDS MAXIMUM. U CAN&#39;T ALLOCATE IT.&quot;);
+}
+}
+}
+void disp1()
+{
+printf(&quot;\nNEEDED RESOURCES:&quot;);
+printf(&quot;\n-----------------&quot;);
+for(i=1;i&lt;=p;i++)
+{
+printf(&quot;\nProcess %d:\t&quot;,i);
+for(j=1;j&lt;=r;j++)
+{
+need[i][j]=max[i][j]-alloc[i][j];
+printf(&quot; %d&quot;,need[i][j]);
+}
+}//for i
+} //function
+void seqnc()
+{
+top=1;
+while(top&lt;=p)
+{
+for(i=1;i&lt;=p;i++)
+{
+buf=0;
+z=0;
+for(j=1;j&lt;=r;j++)
+{ z=z+need[i][j];
+if(need[i][j]&lt;=avail[j])
+buf++;
+}
+if(buf==r&amp;&amp;z!=0)
+{
+a[top]=i;
+top++;
+for(k=1;k&lt;=r;k++)
+
+27
+
+{
+avail[k]=avail[k]+alloc[i][k];
+need[i][k]=0;
+}//for
+} //if(buf==r)
+} //for i
+}//while
+}//function
+void disp2()
+{
+printf(&quot;\nThe Sequence of allocation to the processes:&quot;);
+for(i=1;i&lt;=p;i++)
+printf(&quot; %d&quot;,a[i]);
+}
+void main()
+{
+clrscr();
+get();
+disp1();
+seqnc();
+disp2();
+getch();
+}
+
